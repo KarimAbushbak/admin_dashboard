@@ -5,27 +5,45 @@ class AllBookingsController extends GetxController {
   var bookings = [].obs;
 
   Future<void> fetchAllBookings() async {
-    final snapshot = await FirebaseFirestore.instance.collection('bookings').get();
-    bookings.value = snapshot.docs.map((doc) {
-      final data = doc.data() as Map<String, dynamic>;
-      return {
-        'id': doc.id,
-        'userName': data['userName'] ?? '',
-        'userPhone': data['userPhone'] ?? '',
-        'status': data['status'] ?? '',
-        // add other fields as needed
-      };
-    }).toList();
+    try {
+      final snapshot = await FirebaseFirestore.instance.collection('bookings').get();
+      bookings.value = snapshot.docs.map((doc) {
+        final data = doc.data() as Map<String, dynamic>;
+        return {
+          'id': doc.id,
+          'userName': data['userName'] ?? '',
+          'userPhone': data['userPhone'] ?? '',
+          'gender': data['gender'] ?? '',
+          'status': data['status'] ?? 'pending',
+          'tripId': data['tripId'] ?? '',
+        };
+      }).toList();
+    } catch (e) {
+      print('Error fetching bookings: $e');
+      Get.snackbar('خطأ', 'حدث خطأ أثناء جلب الحجوزات');
+    }
   }
 
   Future<void> confirmBooking(String bookingId) async {
-    await FirebaseFirestore.instance.collection('bookings').doc(bookingId).update({'status': 'confirmed'});
-    updateBookingStatusLocally(bookingId, 'confirmed');
+    try {
+      await FirebaseFirestore.instance.collection('bookings').doc(bookingId).update({'status': 'confirmed'});
+      updateBookingStatusLocally(bookingId, 'confirmed');
+      Get.snackbar('تم', 'تم تأكيد الحجز بنجاح');
+    } catch (e) {
+      print('Error confirming booking: $e');
+      Get.snackbar('خطأ', 'حدث خطأ أثناء تأكيد الحجز');
+    }
   }
 
   Future<void> cancelBooking(String bookingId) async {
-    await FirebaseFirestore.instance.collection('bookings').doc(bookingId).update({'status': 'cancelled'});
-    updateBookingStatusLocally(bookingId, 'cancelled');
+    try {
+      await FirebaseFirestore.instance.collection('bookings').doc(bookingId).update({'status': 'cancelled'});
+      updateBookingStatusLocally(bookingId, 'cancelled');
+      Get.snackbar('تم', 'تم إلغاء الحجز بنجاح');
+    } catch (e) {
+      print('Error cancelling booking: $e');
+      Get.snackbar('خطأ', 'حدث خطأ أثناء إلغاء الحجز');
+    }
   }
 
   void updateBookingStatusLocally(String bookingId, String status) {

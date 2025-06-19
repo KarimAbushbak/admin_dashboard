@@ -70,6 +70,10 @@ class BookingView extends StatelessWidget {
 
   Widget _buildBookingCardContent(Map<String, dynamic> booking, AllBookingsController controller) {
     final status = booking['status'] ?? 'pending';
+    final userName = booking['userName'] ?? '';
+    final userPhone = booking['userPhone'] ?? '';
+    final gender = booking['gender'] ?? '';
+
     return Column(
       children: [
         SizedBox(height: ManagerHeight.h20),
@@ -86,7 +90,7 @@ class BookingView extends StatelessWidget {
               ),
             ),
             Text(
-              booking['userName'],
+              userName,
               textDirection: TextDirection.rtl,
               style: TextStyle(
                 color: Colors.black,
@@ -103,7 +107,7 @@ class BookingView extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  'ذكر', // Replace with actual gender if available
+                  gender,
                   textDirection: TextDirection.rtl,
                   style: TextStyle(
                     color: Colors.grey,
@@ -125,7 +129,7 @@ class BookingView extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  booking['userPhone'],
+                  userPhone,
                   textDirection: TextDirection.rtl,
                   style: TextStyle(
                     color: Colors.grey,

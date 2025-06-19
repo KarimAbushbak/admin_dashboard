@@ -30,7 +30,7 @@ class EditCompanyView extends StatelessWidget {
         centerTitle: true,
         automaticallyImplyLeading: false,
         title: Text(
-          ManagerStrings.companyName,
+          company.companyName,
           style: TextStyle(
             fontSize: 44,
             fontWeight: ManagerFontWeight.bold,
@@ -81,6 +81,9 @@ class EditCompanyView extends StatelessWidget {
                     horizontalMargin,
                     controller.addressController,
                   ),
+                  SizedBox(height: 30),
+                  _buildLabel('رابط دفع الشركة', horizontalMargin),
+                  _buildTextField('ادخل رابط الدفع', horizontalMargin, controller.companyPaymentLinkController),
                   SizedBox(height: 30),
                   Container(
                     margin: EdgeInsets.symmetric(horizontal: horizontalMargin),

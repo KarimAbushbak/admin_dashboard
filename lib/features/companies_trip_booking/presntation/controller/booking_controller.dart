@@ -6,19 +6,41 @@ class CompanyBookingsController extends GetxController {
   var bookings = <Booking>[].obs;
 
   Future<void> fetchCompanyBookings(String companyId, {String? tripId}) async {
-    var query = FirebaseFirestore.instance
-        .collection('bookings')
-        .where('companyId', isEqualTo: companyId);
+    try {
+      // First get the trip IDs for this company
+      List<String> tripIds = [];
+      if (tripId != null) {
+        tripIds = [tripId];
+      } else {
+        final tripsSnapshot = await FirebaseFirestore.instance
+            .collection('trips')
+            .where('companyId', isEqualTo: companyId)
+            .get();
+        
+        tripIds = tripsSnapshot.docs.map((doc) => doc.id).toList();
+      }
 
-    if (tripId != null) {
-      query = query.where('tripId', isEqualTo: tripId);
+      if (tripIds.isEmpty) {
+        bookings.value = [];
+        return;
+      }
+
+      // Get all bookings for these trips
+      final bookingsSnapshot = await FirebaseFirestore.instance
+          .collection('bookings')
+          .where('tripId', whereIn: tripIds)
+          .get();
+
+      bookings.value = bookingsSnapshot.docs.map((doc) {
+        return Booking.fromMap(doc.id, doc.data());
+      }).toList();
+
+      print('Fetched ${bookings.length} bookings'); // Debug print
+    } catch (e) {
+      print('Error fetching company bookings: $e'); // Debug print
+      Get.snackbar('خطأ', 'حدث خطأ أثناء جلب الحجوزات');
+      bookings.value = [];
     }
-
-    final snapshot = await query.get();
-
-    bookings.value = snapshot.docs.map((doc) {
-      return Booking.fromMap(doc.id, doc.data());
-    }).toList();
   }
 
   Future<void> confirmBooking(String bookingId) async {
@@ -81,6 +103,7 @@ class CompanyBookingsController extends GetxController {
         userPhone: booking.userPhone,
         seats: booking.seats,
         status: status,
+        gender: booking.gender
       );
       bookings.refresh();
     }

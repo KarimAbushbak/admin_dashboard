@@ -11,6 +11,7 @@ class EditCompanyController extends GetxController {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController addressController = TextEditingController();
+  final TextEditingController companyPaymentLinkController = TextEditingController();
 
   final Company company;
 
@@ -22,6 +23,7 @@ class EditCompanyController extends GetxController {
     passwordController.text = company.password;
     phoneController.text = company.phone;
     addressController.text = company.address;
+    companyPaymentLinkController.text = company.companyPaymentLink ?? '';
   }
   Future<void> fetchAndInitializeFields() async {
     final doc = await FirebaseFirestore.instance
@@ -36,6 +38,7 @@ class EditCompanyController extends GetxController {
     passwordController.text = updatedCompany.password;
     phoneController.text = updatedCompany.phone;
     addressController.text = updatedCompany.address;
+    companyPaymentLinkController.text = updatedCompany.companyPaymentLink ?? '';
   }
 
 
@@ -50,6 +53,7 @@ class EditCompanyController extends GetxController {
         'password': passwordController.text.trim(),
         'phone': phoneController.text.trim(),
         'address': addressController.text.trim(),
+        'companyPaymentLink': companyPaymentLinkController.text.trim(),
       });
 
 

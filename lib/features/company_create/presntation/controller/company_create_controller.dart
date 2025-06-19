@@ -8,6 +8,7 @@ class CompanyCreateController extends GetxController {
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController addressController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController companyPaymentLinkController = TextEditingController();
 
   var isLoading = false.obs;
 
@@ -61,6 +62,7 @@ class CompanyCreateController extends GetxController {
         'phone': phoneController.text.trim(),
         'address': addressController.text.trim(),
         'password': passwordController.text.trim(),
+        'companyPaymentLink': companyPaymentLinkController.text.trim(),
         'createdAt': Timestamp.now(),
       });
 
@@ -78,7 +80,8 @@ class CompanyCreateController extends GetxController {
         companyNameController.text.isEmpty ||
         phoneController.text.isEmpty ||
         addressController.text.isEmpty ||
-        passwordController.text.isEmpty;
+        passwordController.text.isEmpty ||
+        companyPaymentLinkController.text.isEmpty;
   }
 
   void _clearFields() {
@@ -87,5 +90,6 @@ class CompanyCreateController extends GetxController {
     phoneController.clear();
     addressController.clear();
     passwordController.clear();
+    companyPaymentLinkController.clear();
   }
 }

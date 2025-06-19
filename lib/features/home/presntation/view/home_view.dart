@@ -42,7 +42,7 @@ class HomeView extends StatelessWidget {
               height: 60,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage(ManagerAssets.profile),
+                  image: AssetImage(ManagerAssets.auth1),
                 ),
               ),
             ),
@@ -174,6 +174,9 @@ class HomeView extends StatelessWidget {
                                     value: controller.tripCount.toString(),
                                     color: ManagerColors.red,
                                     iconColor: ManagerColors.red,
+                                    onPressed: () {
+                                      Get.toNamed(Routes.addTripPage);
+                                    },
                                   ),
                                 ),
                               ),
@@ -193,6 +196,9 @@ class HomeView extends StatelessWidget {
                                     value: controller.companyCount.toString(),
                                     color: ManagerColors.yellow,
                                     iconColor: ManagerColors.yellow,
+                                    onPressed: () {
+                                      Get.toNamed(Routes.companyCreatePage);
+                                    },
                                   ),
                                 ),
                               ),
@@ -213,6 +219,9 @@ class HomeView extends StatelessWidget {
                                   value: controller.tripCount.toString(),
                                   color: ManagerColors.red,
                                   iconColor: ManagerColors.red,
+                                  onPressed: () {
+                                    Get.toNamed(Routes.addTripPage);
+                                  },
                                 ),
                               ),
                               SizedBox(height: ManagerHeight.h20),
@@ -230,6 +239,10 @@ class HomeView extends StatelessWidget {
                                   value: controller.companyCount.toString(),
                                   color: ManagerColors.yellow,
                                   iconColor: ManagerColors.yellow,
+                                  onPressed: () {
+                                    Get.toNamed(Routes.companyCreatePage);
+
+                                  },
                                 ),
                               ),
                             ],
@@ -282,8 +295,7 @@ class HomeView extends StatelessWidget {
     required Color color,
     required Color iconColor,
     required String buttonText,
-
-
+    required VoidCallback onPressed,
   }) {
     return Container(
       width: width,
@@ -327,15 +339,13 @@ class HomeView extends StatelessWidget {
                   borderRadius: BorderRadius.circular(15),
                 ),
               ),
-              onPressed: () {
-                Get.toNamed(Routes.companyCreatePage);
-              },
+              onPressed: onPressed,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Flexible(
                     child: Text(
-              buttonText,
+                      buttonText,
                       style: TextStyle(
                         color: ManagerColors.black,
                         fontSize: ManagerFontSizes.s24,

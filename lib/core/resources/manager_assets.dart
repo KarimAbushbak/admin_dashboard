@@ -12,7 +12,7 @@ class ManagerAssets {
   static const String outBoarding7 = 'assets/images/out_boarding/outboarding7.png';
   static const String outBoarding5 = 'assets/images/out_boarding/outboarding5.png';
   static const String facebook = 'assets/images/auth/facebook.png';
-  static const String auth1 = 'assets/images/auth/auth1.png';
+  static const String auth1 = 'assets/images/auth/img.png';
   static const String auth2 = 'assets/images/auth/auth2.png';
   static const String auth3 = 'assets/images/auth/auth3.png';
   static const String auth4 = 'assets/images/auth/auth4.png';
@@ -47,6 +47,5 @@ class ManagerAssets {
   static const String grapes = 'assets/images/home/grapes.png';
   static const String pineapple = 'assets/images/home/pineapple.png';
   static const String pomegranate = 'assets/images/home/pomegranate.png';
-  static const String profile = 'assets/images/profile/profile.png';
   static const String femaleProfile = 'assets/images/profile/profile2.png';
 }

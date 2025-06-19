@@ -58,7 +58,9 @@ class CompanyTripsView extends StatelessWidget {
                       borderRadius: BorderRadius.circular(30),
                     ),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.toNamed(Routes.addTripPage, arguments: {'companyId': companyId});
+                  },
                   icon: Icon(Icons.add, color: Colors.white),
                   label: Text(
                     ManagerStrings.addANewTrip,

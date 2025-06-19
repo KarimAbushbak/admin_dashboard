@@ -5,6 +5,7 @@ class Company {
   final String password;
   final String phone;
   final String address;
+  final String? companyPaymentLink;
 
   Company({
     required this.id,
@@ -13,6 +14,7 @@ class Company {
     required this.password,
     required this.phone,
     required this.address,
+    this.companyPaymentLink,
   });
 
   factory Company.fromMap(String id, Map<String, dynamic> data) {
@@ -23,6 +25,7 @@ class Company {
       password: data['password'] ?? '',
       phone: data['phone'] ?? '',
       address: data['address'] ?? '',
+      companyPaymentLink: data['companyPaymentLink'],
     );
   }
 
@@ -33,6 +36,7 @@ class Company {
       'password': password,
       'phone': phone,
       'address': address,
+      if (companyPaymentLink != null) 'companyPaymentLink': companyPaymentLink,
     };
   }
 }

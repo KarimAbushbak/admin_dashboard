@@ -43,7 +43,14 @@ class TripController extends GetxController {
         }
       }
     } catch (e) {
-      Get.snackbar('Error', 'Failed to fetch companies: $e');
+      Get.snackbar(
+        '❌ Error',
+        'Failed to fetch companies: $e',
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+        snackPosition: SnackPosition.TOP,
+        duration: Duration(seconds: 3),
+      );
       print("Error fetching companies: $e");
     }
     update();
@@ -103,18 +110,84 @@ class TripController extends GetxController {
     }
   }
 
-  /// Add a adding_trips with auto-incremented `tripId`, selected company ID, and Firestore doc ID.
-  Future<void> addTrip() async {
-    if (!formKey.currentState!.validate()) return;
+  bool validateFields() {
     if (selectedCompanyId == null || selectedCompanyId!.value.isEmpty) {
       Get.snackbar(
         '⚠️ Warning',
-        'Please select a company.',
+        'Please select a company',
         backgroundColor: Colors.orange,
         colorText: Colors.white,
+        snackPosition: SnackPosition.TOP,
+        duration: Duration(seconds: 3),
       );
-      return;
+      return false;
     }
+
+    if (fromController.text.isEmpty || toController.text.isEmpty) {
+      Get.snackbar(
+        '⚠️ Warning',
+        'Please select both cities',
+        backgroundColor: Colors.orange,
+        colorText: Colors.white,
+        snackPosition: SnackPosition.TOP,
+        duration: Duration(seconds: 3),
+      );
+      return false;
+    }
+
+    if (dateController.text.isEmpty) {
+      Get.snackbar(
+        '⚠️ Warning',
+        'Please select a date',
+        backgroundColor: Colors.orange,
+        colorText: Colors.white,
+        snackPosition: SnackPosition.TOP,
+        duration: Duration(seconds: 3),
+      );
+      return false;
+    }
+
+    if (timeLeaveController.text.isEmpty || timeArriveController.text.isEmpty) {
+      Get.snackbar(
+        '⚠️ Warning',
+        'Please enter both departure and arrival times',
+        backgroundColor: Colors.orange,
+        colorText: Colors.white,
+        snackPosition: SnackPosition.TOP,
+        duration: Duration(seconds: 3),
+      );
+      return false;
+    }
+
+    if (seatCount.value <= 0) {
+      Get.snackbar(
+        '⚠️ Warning',
+        'Please add at least one seat',
+        backgroundColor: Colors.orange,
+        colorText: Colors.white,
+        snackPosition: SnackPosition.TOP,
+        duration: Duration(seconds: 3),
+      );
+      return false;
+    }
+
+    if (priceController.text.isEmpty || double.tryParse(priceController.text) == null) {
+      Get.snackbar(
+        '⚠️ Warning',
+        'Please enter a valid price',
+        backgroundColor: Colors.orange,
+        colorText: Colors.white,
+        snackPosition: SnackPosition.TOP,
+        duration: Duration(seconds: 3),
+      );
+      return false;
+    }
+
+    return true;
+  }
+
+  Future<void> addTrip() async {
+    if (!validateFields()) return;
 
     isLoading.value = true;
 
@@ -139,9 +212,12 @@ class TripController extends GetxController {
         'Trip added successfully!',
         backgroundColor: Colors.green,
         colorText: Colors.white,
+        snackPosition: SnackPosition.TOP,
+        duration: Duration(seconds: 3),
       );
 
-      formKey.currentState!.reset();
+      // Reset form
+      formKey.currentState?.reset();
       seatCount.value = 0;
       seatsController.text = "0";
       fromController.clear();
@@ -156,9 +232,11 @@ class TripController extends GetxController {
     } catch (e) {
       Get.snackbar(
         '❌ Error',
-        'Failed to add adding_trips: $e',
+        'Failed to add trip: $e',
         backgroundColor: Colors.red,
         colorText: Colors.white,
+        snackPosition: SnackPosition.TOP,
+        duration: Duration(seconds: 3),
       );
     } finally {
       isLoading.value = false;

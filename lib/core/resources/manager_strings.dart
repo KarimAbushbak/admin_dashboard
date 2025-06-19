@@ -40,7 +40,7 @@ class ManagerStrings {
   static const String fromTheCity = 'من مدينة';
   static const String toTheCity = 'إلى مدينة';
   static const String theDate = 'التاريخ';
-  static const String access = 'الوصول';
+  static const String access = 'مدة الرحلة';
   static const String launch = 'الانطلاق';
   static const String ticketPrice = 'سعر التذكرة';
   static const String numberOfSeats = 'عدد المقاعد';

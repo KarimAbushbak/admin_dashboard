@@ -96,7 +96,7 @@ class CompanyBookingsPage extends StatelessWidget {
                           Row(
                             children: [
                               Text(
-                                'ذكر',
+                                booking.gender,
                                 textDirection: TextDirection.rtl,
                                 style: TextStyle(
                                   color: Colors.grey,
