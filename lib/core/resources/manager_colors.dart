@@ -40,4 +40,5 @@ class ManagerColors {
   static Color bgFrameColorcompany =Color(0xffB2B2B2);
   static Color bgColorNamecompany =Color(0xffB2B2B2);
   static Color bgColorTextTrips =Color(0xffDADADA);
+  static const Color bgColorOutBoardingButton = Color(0xffC1E4FD);
 }

@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
         Locale('ar'),
         Locale('en'),
       ],
-      initialRoute: Routes.homeView,
+      initialRoute: Routes.adminLogin,
       onGenerateRoute: RouteGenerator.getRoute,
     );
 

@@ -14,6 +14,8 @@ import '../features/adding_trips/presntation/view/add_trip_page.dart';
 import '../features/companies_trip_booking/presntation/view/company_bookings_page.dart';
 import '../features/company_create/presntation/view/add_company_view.dart';
 import '../features/trips/presntation/view/edit_trip_page.dart';
+import '../features/home/presntation/view/admin_login_view.dart';
+import '../features/home/presntation/view/reset_password_view.dart';
 
 class Routes {
   static const String splashScreen = '/splash_screen';
@@ -41,6 +43,8 @@ class Routes {
   static const String companyBookings = '/companyBookings';
   static const String usersView = '/usersView';
   static const String editTripPage = '/editTrip';
+  static const String adminLogin = '/adminLogin';
+  static const String resetPassword = '/resetPassword';
 }
 
 class RouteGenerator {
@@ -92,6 +96,10 @@ class RouteGenerator {
           builder: (_) => EditTripPage(),
           settings: RouteSettings(arguments: trip),
         );
+      case Routes.adminLogin:
+        return MaterialPageRoute(builder: (_) => AdminLoginView());
+      case Routes.resetPassword:
+        return MaterialPageRoute(builder: (_) => ResetPasswordView());
       // case Routes.detailsView:
       //   final product = settings.arguments as Map<String, dynamic>;
       //   initDetails();

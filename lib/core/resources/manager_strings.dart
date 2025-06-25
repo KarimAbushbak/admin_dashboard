@@ -49,6 +49,7 @@ class ManagerStrings {
   static const String confirmed = 'مؤكدة';
   static const String waiting = 'بالانتظار';
   static const String cancelled = 'ملغية';
-
-
+  static const String newPassword = 'كلمة المرور الجديدة';
+  static const String enterTheNewPassword = 'أدخل كلمة المرور الجديدة';
+  static const String reEnterTheNewPassword = 'أعد إدخال كلمة المرور الجديدة';
 }
