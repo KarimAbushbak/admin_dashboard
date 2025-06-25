@@ -186,7 +186,7 @@ class TripController extends GetxController {
     return true;
   }
 
-  Future<void> addTrip() async {
+  Future<void> addTrip(BuildContext context) async {
     if (!validateFields()) return;
 
     isLoading.value = true;
@@ -207,6 +207,15 @@ class TripController extends GetxController {
         'createdAt': Timestamp.now(),
       });
 
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('تمت إضافة الرحلة بنجاح!'),
+            backgroundColor: Colors.green,
+            duration: Duration(seconds: 2),
+          ),
+        );
+      }
       Get.snackbar(
         '✅ Success',
         'Trip added successfully!',

@@ -303,8 +303,11 @@ class TripsView extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             ElevatedButton(
-                              onPressed: () {
-                                // TODO: Implement edit trip details
+                              onPressed: () async {
+                                final result = await Get.toNamed('/editTrip', arguments: trip);
+                                if (result == true) {
+                                  controller.fetchAllTripsWithCompanyData();
+                                }
                               },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: ManagerColors.red,

@@ -13,6 +13,7 @@ import '../config/dependancy_injection.dart';
 import '../features/adding_trips/presntation/view/add_trip_page.dart';
 import '../features/companies_trip_booking/presntation/view/company_bookings_page.dart';
 import '../features/company_create/presntation/view/add_company_view.dart';
+import '../features/trips/presntation/view/edit_trip_page.dart';
 
 class Routes {
   static const String splashScreen = '/splash_screen';
@@ -39,6 +40,7 @@ class Routes {
   static const String tripsView = '/tripsView';
   static const String companyBookings = '/companyBookings';
   static const String usersView = '/usersView';
+  static const String editTripPage = '/editTrip';
 }
 
 class RouteGenerator {
@@ -84,6 +86,12 @@ class RouteGenerator {
         );
       case Routes.usersView:
         return MaterialPageRoute(builder: (_) => UsersView());
+      case Routes.editTripPage:
+        final trip = settings.arguments as Map<String, dynamic>;
+        return MaterialPageRoute(
+          builder: (_) => EditTripPage(),
+          settings: RouteSettings(arguments: trip),
+        );
       // case Routes.detailsView:
       //   final product = settings.arguments as Map<String, dynamic>;
       //   initDetails();

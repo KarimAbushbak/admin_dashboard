@@ -69,7 +69,7 @@ class AddTripPage extends StatelessWidget {
                     borderRadius: BorderRadius.circular(15),
                   ),
                 ),
-                onPressed: () => controller.addTrip(),
+                onPressed: () => controller.addTrip(context),
                 icon: const Icon(Icons.file_copy, color: Colors.white),
                 label: Text(
                   ManagerStrings.saveInformation,
