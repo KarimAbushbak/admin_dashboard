@@ -81,7 +81,7 @@ class BookingView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              'SY001', // Replace with actual trip identifier if available
+              booking['tripNumber'] ?? 'N/A',
               textDirection: TextDirection.rtl,
               style: TextStyle(
                 color: Colors.black,

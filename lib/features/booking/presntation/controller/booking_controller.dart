@@ -6,18 +6,42 @@ class AllBookingsController extends GetxController {
 
   Future<void> fetchAllBookings() async {
     try {
-      final snapshot = await FirebaseFirestore.instance.collection('bookings').get();
-      bookings.value = snapshot.docs.map((doc) {
-        final data = doc.data() as Map<String, dynamic>;
-        return {
-          'id': doc.id,
-          'userName': data['userName'] ?? '',
-          'userPhone': data['userPhone'] ?? '',
+    final snapshot = await FirebaseFirestore.instance.collection('bookings').get();
+      List<Map<String, dynamic>> bookingsWithTrips = [];
+      
+      for (var doc in snapshot.docs) {
+      final data = doc.data() as Map<String, dynamic>;
+        String tripNumber = 'N/A';
+        
+        // Fetch trip information if tripId exists
+        if (data['tripId'] != null && data['tripId'].toString().isNotEmpty) {
+          try {
+            final tripDoc = await FirebaseFirestore.instance
+                .collection('trips')
+                .doc(data['tripId'])
+                .get();
+            
+            if (tripDoc.exists) {
+              final tripData = tripDoc.data() as Map<String, dynamic>;
+              tripNumber = tripData['tripNumber'] ?? 'N/A';
+            }
+          } catch (e) {
+            print('Error fetching trip info: $e');
+          }
+        }
+        
+        bookingsWithTrips.add({
+        'id': doc.id,
+        'userName': data['userName'] ?? '',
+        'userPhone': data['userPhone'] ?? '',
           'gender': data['gender'] ?? '',
           'status': data['status'] ?? 'pending',
           'tripId': data['tripId'] ?? '',
-        };
-      }).toList();
+          'tripNumber': tripNumber,
+        });
+      }
+      
+      bookings.value = bookingsWithTrips;
     } catch (e) {
       print('Error fetching bookings: $e');
       Get.snackbar('خطأ', 'حدث خطأ أثناء جلب الحجوزات');
@@ -26,8 +50,8 @@ class AllBookingsController extends GetxController {
 
   Future<void> confirmBooking(String bookingId) async {
     try {
-      await FirebaseFirestore.instance.collection('bookings').doc(bookingId).update({'status': 'confirmed'});
-      updateBookingStatusLocally(bookingId, 'confirmed');
+    await FirebaseFirestore.instance.collection('bookings').doc(bookingId).update({'status': 'confirmed'});
+    updateBookingStatusLocally(bookingId, 'confirmed');
       Get.snackbar('تم', 'تم تأكيد الحجز بنجاح');
     } catch (e) {
       print('Error confirming booking: $e');
@@ -37,8 +61,8 @@ class AllBookingsController extends GetxController {
 
   Future<void> cancelBooking(String bookingId) async {
     try {
-      await FirebaseFirestore.instance.collection('bookings').doc(bookingId).update({'status': 'cancelled'});
-      updateBookingStatusLocally(bookingId, 'cancelled');
+    await FirebaseFirestore.instance.collection('bookings').doc(bookingId).update({'status': 'cancelled'});
+    updateBookingStatusLocally(bookingId, 'cancelled');
       Get.snackbar('تم', 'تم إلغاء الحجز بنجاح');
     } catch (e) {
       print('Error cancelling booking: $e');

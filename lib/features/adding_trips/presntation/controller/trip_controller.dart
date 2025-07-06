@@ -184,7 +184,7 @@ class TripController extends GetxController {
     }
 
     return true;
-  }
+    }
 
   Future<void> addTrip(BuildContext context) async {
     if (!validateFields()) return;

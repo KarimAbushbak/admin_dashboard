@@ -23,7 +23,7 @@ class CompanyBookingsController extends GetxController {
       if (tripIds.isEmpty) {
         bookings.value = [];
         return;
-      }
+    }
 
       // Get all bookings for these trips
       final bookingsSnapshot = await FirebaseFirestore.instance
@@ -32,8 +32,8 @@ class CompanyBookingsController extends GetxController {
           .get();
 
       bookings.value = bookingsSnapshot.docs.map((doc) {
-        return Booking.fromMap(doc.id, doc.data());
-      }).toList();
+      return Booking.fromMap(doc.id, doc.data());
+    }).toList();
 
       print('Fetched ${bookings.length} bookings'); // Debug print
     } catch (e) {
