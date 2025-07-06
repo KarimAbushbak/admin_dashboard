@@ -32,6 +32,7 @@ class UsersView extends StatelessWidget {
                   itemCount: controller.users.length,
                   itemBuilder: (context, index) {
                     final user = controller.users[index];
+                    final data = user.data() as Map<String, dynamic>?;
                     return Card(
                       margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                       child: ListTile(
@@ -39,14 +40,14 @@ class UsersView extends StatelessWidget {
                           child: Icon(Icons.person),
                         ),
                         title: Text(
-                          user['name'] ?? 'No Name',
+                          data?['name'] ?? 'No Name',
                           style: TextStyle(
                             fontWeight: ManagerFontWeight.bold,
                             fontSize: ManagerFontSizes.s18,
                           ),
                         ),
                         subtitle: Text(
-                          user['email'] ?? 'No Email',
+                          data?['email'] ?? 'No Email',
                           style: TextStyle(
                             fontSize: ManagerFontSizes.s14,
                           ),

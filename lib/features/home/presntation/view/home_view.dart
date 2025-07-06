@@ -55,229 +55,237 @@ class HomeView extends StatelessWidget {
             double cardMargin = screenWidth > 600 ? (screenWidth - cardWidth) / 2 : screenWidth * 0.05;
             double miniCardWidth = screenWidth > 800 ? (cardWidth - 20) / 2 : cardWidth;
 
-            return SingleChildScrollView(
-              child: Container(
-                margin: EdgeInsets.symmetric(horizontal: cardMargin),
-                child: Column(
-                  children: [
-                    SizedBox(height: ManagerHeight.h50),
-                    GestureDetector(
-                      onTap:(){
-                        Get.toNamed(Routes.bookingView);
-                      },
-                      child: Container(
-                        width: cardWidth,
-                        height: 140,
-                        decoration: BoxDecoration(
-                          color: ManagerColors.primaryColor,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              controller.bookingCount.toString(),
-                              style: TextStyle(
-                                fontWeight: ManagerFontWeight.bold,
-                                fontSize: ManagerFontSizes.s50,
-                                color: ManagerColors.white,
-                              ),
+            return Center(
+              child: SingleChildScrollView(
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(
+                    maxWidth: cardWidth + cardMargin * 2,
+                  ),
+                  child: Container(
+                    margin: EdgeInsets.symmetric(horizontal: cardMargin),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(height: ManagerHeight.h20), // reduced top padding
+                        GestureDetector(
+                          onTap:(){
+                            Get.toNamed(Routes.bookingView);
+                          },
+                          child: Container(
+                            width: cardWidth,
+                            height: 140,
+                            decoration: BoxDecoration(
+                              color: ManagerColors.primaryColor,
+                              borderRadius: BorderRadius.circular(10),
                             ),
-                            SizedBox(width: screenWidth > 600 ? 160 : 30),
-                            Column(
+                            child: Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Icon(Icons.event_available,
-                                    color: ManagerColors.white, size: 80),
                                 Text(
-                                  ManagerStrings.reservations,
+                                  controller.bookingCount.toString(),
                                   style: TextStyle(
-                                    fontWeight: ManagerFontWeight.regular,
-                                    fontSize: ManagerFontSizes.s20,
+                                    fontWeight: ManagerFontWeight.bold,
+                                    fontSize: ManagerFontSizes.s50,
                                     color: ManagerColors.white,
                                   ),
                                 ),
+                                SizedBox(width: screenWidth > 600 ? 160 : 30),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(Icons.event_available,
+                                        color: ManagerColors.white, size: 80),
+                                    Text(
+                                      ManagerStrings.reservations,
+                                      style: TextStyle(
+                                        fontWeight: ManagerFontWeight.regular,
+                                        fontSize: ManagerFontSizes.s20,
+                                        color: ManagerColors.white,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ],
                             ),
-                          ],
+                          ),
                         ),
-                      ),
-                    ),
-                    SizedBox(height: ManagerHeight.h30),
+                        SizedBox(height: ManagerHeight.h30),
 
-                    // الكرت الثاني
-                    GestureDetector(
-                      onTap: () {
-                        Get.toNamed(Routes.usersView);
-                      },
-                      child: Container(
-                        width: cardWidth,
-                        height: 140,
-                        decoration: BoxDecoration(
-                          color: ManagerColors.green,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              controller.userCount.toString(),
-                              style: TextStyle(
-                                fontWeight: ManagerFontWeight.bold,
-                                fontSize: ManagerFontSizes.s50,
-                                color: ManagerColors.white,
-                              ),
+                        // الكرت الثاني
+                        GestureDetector(
+                          onTap: () {
+                            Get.toNamed(Routes.usersView);
+                          },
+                          child: Container(
+                            width: cardWidth,
+                            height: 140,
+                            decoration: BoxDecoration(
+                              color: ManagerColors.green,
+                              borderRadius: BorderRadius.circular(10),
                             ),
-                            SizedBox(width: screenWidth > 600 ? 160 : 30),
-                            Column(
+                            child: Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Icon(Icons.person,
-                                    color: ManagerColors.white, size: 80),
                                 Text(
-                                  ManagerStrings.users,
+                                  controller.userCount.toString(),
                                   style: TextStyle(
-                                    fontWeight: ManagerFontWeight.regular,
-                                    fontSize: ManagerFontSizes.s20,
+                                    fontWeight: ManagerFontWeight.bold,
+                                    fontSize: ManagerFontSizes.s50,
                                     color: ManagerColors.white,
                                   ),
                                 ),
+                                SizedBox(width: screenWidth > 600 ? 160 : 30),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(Icons.person,
+                                        color: ManagerColors.white, size: 80),
+                                    Text(
+                                      ManagerStrings.users,
+                                      style: TextStyle(
+                                        fontWeight: ManagerFontWeight.regular,
+                                        fontSize: ManagerFontSizes.s20,
+                                        color: ManagerColors.white,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ],
                             ),
-                          ],
+                          ),
                         ),
-                      ),
-                    ),
-                    SizedBox(height: ManagerHeight.h30),
+                        SizedBox(height: ManagerHeight.h30),
 
-                    // كروت الصف السفلي: responsive Row / Column
-                    screenWidth > 800
-                        ? Row(
+                        // كروت الصف السفلي: responsive Row / Column
+                        screenWidth > 800
+                            ? Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  GestureDetector(
+                                    onTap: (){
+                                      Get.toNamed(Routes.tripsView);
+                                    },
+
+                                    child: Expanded(
+                                      child: buildMiniCard(
+                                        buttonText: "اضافة رحلة",
+                                        width: miniCardWidth,
+                                        title: ManagerStrings.trips,
+                                        icon: Icons.directions_bus_sharp,
+                                        value: controller.tripCount.toString(),
+                                        color: ManagerColors.red,
+                                        iconColor: ManagerColors.red,
+                                        onPressed: () {
+                                          Get.toNamed(Routes.addTripPage);
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(width: ManagerWidth.w20),
+                                  Expanded(
+                                    child: GestureDetector(
+                                      onTap: (){
+                                        Get.put(CompanyController());
+                                        Get.toNamed(Routes.companyView);
+                                      },
+                                      child: buildMiniCard(
+                                        buttonText: "اضافة شركة",
+
+                                        width: miniCardWidth,
+                                        title: ManagerStrings.companies,
+                                        icon: Icons.store,
+                                        value: controller.companyCount.toString(),
+                                        color: ManagerColors.yellow,
+                                        iconColor: ManagerColors.yellow,
+                                        onPressed: () {
+                                          Get.toNamed(Routes.companyCreatePage);
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              )
+                            : Column(
+                                children: [
+                                  GestureDetector(
+                                    onTap: (){
+                                      Get.toNamed(Routes.tripsView);
+                                    },
+                                    child: buildMiniCard(
+                                      width: miniCardWidth,
+                                      buttonText: "اضافة رحلة",
+
+                                      title: ManagerStrings.trips,
+                                      icon: Icons.directions_bus_sharp,
+                                      value: controller.tripCount.toString(),
+                                      color: ManagerColors.red,
+                                      iconColor: ManagerColors.red,
+                                      onPressed: () {
+                                        Get.toNamed(Routes.addTripPage);
+                                      },
+                                    ),
+                                  ),
+                                  SizedBox(height: ManagerHeight.h20),
+                                  GestureDetector(
+                                    onTap: (){
+                                      Get.put(CompanyController());
+                                      Get.toNamed(Routes.companyView);
+                                    },
+                                    child: buildMiniCard(
+                                      buttonText: "اضافة شركة",
+
+                                      width: miniCardWidth,
+                                      title: ManagerStrings.companies,
+                                      icon: Icons.store,
+                                      value: controller.companyCount.toString(),
+                                      color: ManagerColors.yellow,
+                                      iconColor: ManagerColors.yellow,
+                                      onPressed: () {
+                                        Get.toNamed(Routes.companyCreatePage);
+
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              ),
+                        SizedBox(height: ManagerHeight.h20),
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: ManagerColors.primaryColor,
+                            fixedSize: Size(screenWidth > 400 ? 250 : screenWidth * 0.7, 50),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                          ),
+                          onPressed: () {},
+                          child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              GestureDetector(
-                                onTap: (){
-                                  Get.toNamed(Routes.tripsView);
-                                },
-
-                                child: Expanded(
-                                  child: buildMiniCard(
-                                    buttonText: "اضافة رحلة",
-                                    width: miniCardWidth,
-                                    title: ManagerStrings.trips,
-                                    icon: Icons.directions_bus_sharp,
-                                    value: controller.tripCount.toString(),
-                                    color: ManagerColors.red,
-                                    iconColor: ManagerColors.red,
-                                    onPressed: () {
-                                      Get.toNamed(Routes.addTripPage);
-                                    },
-                                  ),
+                              Text(
+                                ManagerStrings.citiesAndRegions,
+                                style: TextStyle(
+                                  color: ManagerColors.white,
+                                  fontSize: ManagerFontSizes.s24,
                                 ),
                               ),
-                              SizedBox(width: ManagerWidth.w20),
-                              Expanded(
-                                child: GestureDetector(
-                                  onTap: (){
-                                    Get.put(CompanyController());
-                                    Get.toNamed(Routes.companyView);
-                                  },
-                                  child: buildMiniCard(
-                                    buttonText: "اضافة شركة",
-
-                                    width: miniCardWidth,
-                                    title: ManagerStrings.companies,
-                                    icon: Icons.store,
-                                    value: controller.companyCount.toString(),
-                                    color: ManagerColors.yellow,
-                                    iconColor: ManagerColors.yellow,
-                                    onPressed: () {
-                                      Get.toNamed(Routes.companyCreatePage);
-                                    },
-                                  ),
-                                ),
-                              ),
-                            ],
-                          )
-                        : Column(
-                            children: [
-                              GestureDetector(
-                                onTap: (){
-                                  Get.toNamed(Routes.tripsView);
-                                },
-                                child: buildMiniCard(
-                                  width: miniCardWidth,
-                                  buttonText: "اضافة رحلة",
-
-                                  title: ManagerStrings.trips,
-                                  icon: Icons.directions_bus_sharp,
-                                  value: controller.tripCount.toString(),
-                                  color: ManagerColors.red,
-                                  iconColor: ManagerColors.red,
-                                  onPressed: () {
-                                    Get.toNamed(Routes.addTripPage);
-                                  },
-                                ),
-                              ),
-                              SizedBox(height: ManagerHeight.h20),
-                              GestureDetector(
-                                onTap: (){
-                                  Get.put(CompanyController());
-                                  Get.toNamed(Routes.companyView);
-                                },
-                                child: buildMiniCard(
-                                  buttonText: "اضافة شركة",
-
-                                  width: miniCardWidth,
-                                  title: ManagerStrings.companies,
-                                  icon: Icons.store,
-                                  value: controller.companyCount.toString(),
-                                  color: ManagerColors.yellow,
-                                  iconColor: ManagerColors.yellow,
-                                  onPressed: () {
-                                    Get.toNamed(Routes.companyCreatePage);
-
-                                  },
-                                ),
+                              Icon(
+                                Icons.map,
+                                color: ManagerColors.white,
+                                size: 25,
                               ),
                             ],
                           ),
-                    SizedBox(height: ManagerHeight.h20),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: ManagerColors.primaryColor,
-                        fixedSize: Size(screenWidth > 400 ? 250 : screenWidth * 0.7, 50),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15),
                         ),
-                      ),
-                      onPressed: () {},
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            ManagerStrings.citiesAndRegions,
-                            style: TextStyle(
-                              color: ManagerColors.white,
-                              fontSize: ManagerFontSizes.s24,
-                            ),
-                          ),
-                          Icon(
-                            Icons.map,
-                            color: ManagerColors.white,
-                            size: 25,
-                          ),
-                        ],
-                      ),
+                        SizedBox(height: ManagerHeight.h20),
+                      ],
                     ),
-                    SizedBox(height: ManagerHeight.h20),
-                  ],
+                  ),
                 ),
               ),
             );

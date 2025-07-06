@@ -138,12 +138,14 @@ class AdminLoginView extends StatelessWidget {
                           ),
                         ),
                         onPressed: controller.loginAdmin,
-                        child: Text(
-                          ManagerStrings.login,
-                          style: TextStyle(
-                            fontWeight: ManagerFontWeight.regular,
-                            fontSize: 48,
-                            color: Colors.white,
+                        child: Center(
+                          child: Text(
+                            ManagerStrings.login,
+                            style: TextStyle(
+                              fontWeight: ManagerFontWeight.regular,
+                              fontSize: 48,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                       ),

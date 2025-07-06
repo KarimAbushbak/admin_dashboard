@@ -31,6 +31,9 @@ class BookingView extends StatelessWidget {
         ),
       ),
       body: Obx(() {
+        if (controller.isLoading.value) {
+          return const Center(child: CircularProgressIndicator());
+        }
         if (controller.bookings.isEmpty) {
           return const Center(child: Text("لا توجد حجوزات حالياً"));
         }

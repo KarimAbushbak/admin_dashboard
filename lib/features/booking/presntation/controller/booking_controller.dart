@@ -3,16 +3,16 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AllBookingsController extends GetxController {
   var bookings = [].obs;
+  var isLoading = false.obs;
 
   Future<void> fetchAllBookings() async {
+    isLoading.value = true;
     try {
-    final snapshot = await FirebaseFirestore.instance.collection('bookings').get();
+      final snapshot = await FirebaseFirestore.instance.collection('bookings').get();
       List<Map<String, dynamic>> bookingsWithTrips = [];
-      
       for (var doc in snapshot.docs) {
-      final data = doc.data() as Map<String, dynamic>;
+        final data = doc.data() as Map<String, dynamic>;
         String tripNumber = 'N/A';
-        
         // Fetch trip information if tripId exists
         if (data['tripId'] != null && data['tripId'].toString().isNotEmpty) {
           try {
@@ -20,7 +20,6 @@ class AllBookingsController extends GetxController {
                 .collection('trips')
                 .doc(data['tripId'])
                 .get();
-            
             if (tripDoc.exists) {
               final tripData = tripDoc.data() as Map<String, dynamic>;
               tripNumber = tripData['tripNumber'] ?? 'N/A';
@@ -29,22 +28,22 @@ class AllBookingsController extends GetxController {
             print('Error fetching trip info: $e');
           }
         }
-        
         bookingsWithTrips.add({
-        'id': doc.id,
-        'userName': data['userName'] ?? '',
-        'userPhone': data['userPhone'] ?? '',
+          'id': doc.id,
+          'userName': data['userName'] ?? '',
+          'userPhone': data['userPhone'] ?? '',
           'gender': data['gender'] ?? '',
           'status': data['status'] ?? 'pending',
           'tripId': data['tripId'] ?? '',
           'tripNumber': tripNumber,
         });
       }
-      
       bookings.value = bookingsWithTrips;
     } catch (e) {
       print('Error fetching bookings: $e');
       Get.snackbar('خطأ', 'حدث خطأ أثناء جلب الحجوزات');
+    } finally {
+      isLoading.value = false;
     }
   }
 
