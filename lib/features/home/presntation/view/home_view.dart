@@ -166,12 +166,11 @@ class HomeView extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  GestureDetector(
-                                    onTap: (){
-                                      Get.toNamed(Routes.tripsView);
-                                    },
-
-                                    child: Expanded(
+                                  Expanded(
+                                    child: GestureDetector(
+                                      onTap: (){
+                                        Get.toNamed(Routes.tripsView);
+                                      },
                                       child: buildMiniCard(
                                         buttonText: "اضافة رحلة",
                                         width: miniCardWidth,
@@ -195,7 +194,6 @@ class HomeView extends StatelessWidget {
                                       },
                                       child: buildMiniCard(
                                         buttonText: "اضافة شركة",
-
                                         width: miniCardWidth,
                                         title: ManagerStrings.companies,
                                         icon: Icons.store,
